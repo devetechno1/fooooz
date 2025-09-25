@@ -46,9 +46,8 @@ class DeliveryStatus {
   }
 }
 
-
-      // case "picked_up":
-      //   return Colors.orangeAccent.shade200;
+// case "picked_up":
+//   return Colors.orangeAccent.shade200;
 class OrderList extends StatefulWidget {
   const OrderList({Key? key, this.from_checkout = false}) : super(key: key);
   final bool from_checkout;
@@ -461,7 +460,7 @@ class _OrderListState extends State<OrderList> {
               padding:
                   const EdgeInsets.only(bottom: AppDimensions.paddingSmall),
               child: Text(
-                _orderList[index].code!,
+                _orderList[index].code ?? '',
                 style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 13,
@@ -522,7 +521,7 @@ class _OrderListState extends State<OrderList> {
                       fontWeight: FontWeight.w500),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

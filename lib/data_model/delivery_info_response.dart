@@ -112,6 +112,7 @@ class CartItem {
     this.productName,
     this.productThumbnailImage,
     this.isDigital,
+    this.foooozNumber,
     this.wholesales = const [],
   });
 
@@ -124,6 +125,7 @@ class CartItem {
   String? productName;
   String? productThumbnailImage;
   bool? isDigital;
+  String? foooozNumber;
   List<Wholesale> wholesales;
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
@@ -136,6 +138,8 @@ class CartItem {
         productQuantity: int.tryParse("${json["product_quantity"]}"),
         productThumbnailImage: json["product_thumbnail_image"],
         isDigital: json["product_is_digital"],
+        foooozNumber:
+            json["fooooz_number"] == null ? null : "${json["fooooz_number"]}",
         wholesales: json["wholesale_variation"] == null
             ? []
             : List<Wholesale>.from((json["wholesale_variation"] as List)
@@ -151,6 +155,7 @@ class CartItem {
         "product_price": productPrice,
         "product_quantity": productQuantity,
         "product_thumbnail_image": productThumbnailImage,
+        if (foooozNumber != null) "fooooz_number": foooozNumber,
         "wholesale_variation":
             List<dynamic>.from(wholesales.map((x) => x.toJson())),
       };

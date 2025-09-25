@@ -1,4 +1,9 @@
 const Map<String, String> arLangs = {
+  "fooooz_number_item_details_title": "رقم فوز",
+  "fooooz_number_item_details_description": "وصف رقم فوز",
+  "fooooz_number_shipping_info": "رقم فوز: {fooooz_number}",
+  "fooooz_number_cart": "رقم فوز: {fooooz_number}",
+  "fooooz_number_order_details": "رقم فوز: {fooooz_number}",
   "fill_all_slots": "من فضلك املأ كل الخانات",
   "all_fields_filled": "كل الحقول ممتلئة.",
   "download_started": "تم بدء التحميل",

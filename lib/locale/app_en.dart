@@ -1,4 +1,9 @@
 const Map<String, String> enLangs = {
+  "fooooz_number_item_details_title": "Fooooz Number",
+  "fooooz_number_item_details_description": "Fooooz Number description",
+  "fooooz_number_shipping_info": "Fooooz Number: {fooooz_number}",
+  "fooooz_number_cart": "Fooooz Number: {fooooz_number}",
+  "fooooz_number_order_details": "Fooooz Number: {fooooz_number}",
   "fill_all_slots": "Please fill all slots",
   "all_fields_filled": "All fields are filled.",
   "download_started": "Download started",
@@ -899,5 +904,4 @@ const Map<String, String> enLangs = {
   "download_canceled": "Download canceled by user",
   "saved_to": "Saved to",
   "invoice_downloaded": "Invoice downloaded",
-
 };

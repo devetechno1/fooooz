@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:active_ecommerce_cms_demo_app/data_model/variant_price_response.dart';
 import 'package:active_ecommerce_cms_demo_app/helpers/num_ex.dart';
 import 'package:animated_text_lerp/animated_text_lerp.dart';
 import 'package:badges/badges.dart' as badges;
@@ -111,6 +112,7 @@ class _ProductDetailsState extends State<ProductDetails>
   int _inCart = 0;
   String? _stock_txt;
 
+  final List<int> _initialFoooozNumbers = [];
   bool _isDigital = false;
 
   int get _s => _stock.onlyPositive?.toInt() ?? 0;
@@ -367,6 +369,8 @@ class _ProductDetailsState extends State<ProductDetails>
     }
   }
 
+  bool _variantLoaded = false;
+
   Future<void> fetchAndSetVariantWiseInfo({
     bool change_appbar_string = true,
     bool inInit = false,
@@ -376,6 +380,8 @@ class _ProductDetailsState extends State<ProductDetails>
         : "";
 
     if (inInit) _quantity = minQuantity;
+
+    _variantLoaded = false;
 
     final variantResponse = await ProductRepository().getVariantWiseInfo(
       slug: widget.slug,
@@ -387,6 +393,13 @@ class _ProductDetailsState extends State<ProductDetails>
     _stock_txt = variantResponse.variantData!.stockTxt;
     _inCart = variantResponse.variantData!.inCart ?? 0;
     _isDigital = variantResponse.variantData!.digital;
+
+    _variantLoaded = true;
+
+    _initialFoooozNumbers.clear();
+    _initialFoooozNumbers.addAll(
+      variantResponse.variantData?.foooozNumber ?? [],
+    );
 
     if (inInit && _inCart > 0) {
       _quantity = _inCart;
@@ -494,6 +507,7 @@ class _ProductDetailsState extends State<ProductDetails>
       );
       return;
     }
+
     await fetchAndSetVariantWiseInfo();
 
     final cartAddResponse = await CartRepository().getCartAddResponse(
@@ -502,6 +516,13 @@ class _ProductDetailsState extends State<ProductDetails>
       _quantity,
       foooozNumber.toString(),
     );
+
+    final List<int>? _temp = getFoooozNumber(foooozNumber.toString());
+
+    if (_temp?.isNotEmpty == true) {
+      _initialFoooozNumbers.clear();
+      _initialFoooozNumbers.addAll(_temp!);
+    }
 
     temp_user_id.$ = cartAddResponse?.tempUserId ?? '';
     await temp_user_id.save();
@@ -1214,9 +1235,17 @@ class _ProductDetailsState extends State<ProductDetails>
                                 ],
                               ),
                             ),
-                            if (_productDetails != null)
+                            if (_productDetails != null && _variantLoaded)
                               NumberAssignWidget(
+                                title: "fooooz_number_item_details_title".tr(
+                                  context: context,
+                                ),
+                                description:
+                                    "fooooz_number_item_details_description".tr(
+                                  context: context,
+                                ),
                                 fieldKey: _formFieldKey,
+                                initialSelection: _initialFoooozNumbers,
                                 onChanged: (value) {
                                   foooozNumber.clear();
                                   foooozNumber.write(value.join('-'));

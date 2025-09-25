@@ -18,7 +18,8 @@ class NumberAssignWidget extends StatefulWidget {
     this.fieldCount = 5, // number of OTP-like slots in a single row
     required this.onChanged,
     this.initialSelection = const <int>[],
-    this.titleKey,
+    this.title,
+    this.description,
     this.gridSpacing = AppDimensions.paddingSmallExtra,
     this.gridRunSpacing = AppDimensions.paddingSmallExtra,
     this.buttonSize = const Size(40, 40),
@@ -37,7 +38,8 @@ class NumberAssignWidget extends StatefulWidget {
   final List<int> initialSelection;
 
   // Optional UI/strings
-  final String? titleKey;
+  final String? title;
+  final String? description;
   final double gridSpacing;
   final double gridRunSpacing;
   final Size buttonSize;
@@ -179,15 +181,25 @@ class _NumberAssignWidgetState extends State<NumberAssignWidget> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.titleKey != null)
-                  Padding(
+                if (widget.title?.trim().isNotEmpty == true)
+                  Container(
                     padding: const EdgeInsets.only(bottom: 8),
+                    width: double.infinity,
                     child: Text(
-                      widget.titleKey!.tr(context: context),
+                      widget.title!.tr(context: context),
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: state.hasError ? theme.colorScheme.error : null,
                       ),
+                    ),
+                  ),
+                if (widget.description?.trim().isNotEmpty == true)
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    width: double.infinity,
+                    child: Text(
+                      widget.description!.tr(context: context),
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ),
 

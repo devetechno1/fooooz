@@ -1063,7 +1063,7 @@ class _ShippingInfoState extends State<ShippingInfo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: AppDimensions.paddingDefault,
+              spacing: AppDimensions.paddingHalfSmall,
               children: [
                 Flexible(
                   child: Text(
@@ -1076,6 +1076,19 @@ class _ShippingInfoState extends State<ShippingInfo> {
                         fontWeight: FontWeight.w400),
                   ),
                 ),
+                if (item.foooozNumber?.isNotEmpty == true)
+                  Text(
+                    'fooooz_number_shipping_info'.tr(
+                      context: context,
+                      args: {'fooooz_number': "${item.foooozNumber}"},
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const TextStyle(
+                        color: MyTheme.font_grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
                 Builder(builder: (context) {
                   // String priceWithCurrency = SystemConfig.systemCurrency != null
                   //     ? "${item.productPrice}".replaceAll(

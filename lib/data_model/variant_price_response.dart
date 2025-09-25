@@ -38,6 +38,7 @@ class Data {
   String? variation;
   int? maxLimit;
   int? inStock;
+  List<int>? foooozNumber;
 
   Data({
     this.price,
@@ -46,6 +47,7 @@ class Data {
     this.variation,
     this.maxLimit,
     this.inStock,
+    this.foooozNumber,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -55,6 +57,7 @@ class Data {
         variation: json["variation"],
         maxLimit: json["max_limit"],
         inStock: json["in_stock"],
+        foooozNumber: getFoooozNumber(json["fooooz_number"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,5 +67,15 @@ class Data {
         "variation": variation,
         "max_limit": maxLimit,
         "in_stock": inStock,
+        if (foooozNumber != null) "fooooz_number": foooozNumber!.join("-"),
       };
+}
+
+List<int>? getFoooozNumber(raw) {
+  if (raw == null) return null;
+  if (raw is List)
+    return raw.map((e) => int.tryParse("$e")).whereType<int>().toList();
+  if (raw is String)
+    return raw.split("-").map((e) => int.tryParse(e)).whereType<int>().toList();
+  return null;
 }

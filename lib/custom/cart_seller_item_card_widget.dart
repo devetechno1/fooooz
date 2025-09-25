@@ -99,6 +99,19 @@ class CartSellerItemCardWidget extends StatelessWidget {
                           fontSize: 12,
                           fontWeight: FontWeight.w400),
                     ),
+                    if (item.foooozNumber?.isNotEmpty == true)
+                      Text(
+                        'fooooz_number_cart'.tr(
+                          context: context,
+                          args: {'fooooz_number': "${item.foooozNumber}"},
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(
+                            color: MyTheme.font_grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
                     AnimatedNumberText<double>(
                       double.tryParse(
                             item.price!.replaceAll(RegExp('[^0-9.]'), ''),

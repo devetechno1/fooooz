@@ -54,6 +54,7 @@ class OrderItem {
       this.refund_section,
       this.refund_button,
       this.refund_label,
+      this.fooooz_number,
       this.refund_request_status});
 
   int? id;
@@ -73,6 +74,7 @@ class OrderItem {
   bool? refund_button;
   String? refund_label;
   int? refund_request_status;
+  String? fooooz_number;
 
   factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
         id: json["id"],
@@ -92,6 +94,7 @@ class OrderItem {
         refund_button: json["refund_button"],
         refund_label: json["refund_label"],
         refund_request_status: json["refund_request_status"],
+        fooooz_number: json["fooooz_number"] == null ? null : "${json["fooooz_number"]}",
       );
 
   Map<String, dynamic> toJson() => {
@@ -112,5 +115,6 @@ class OrderItem {
         "refund_button": refund_button,
         "refund_label": refund_label,
         "refund_request_status": refund_request_status,
+        "fooooz_number": fooooz_number,
       };
 }

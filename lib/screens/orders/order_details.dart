@@ -1396,6 +1396,25 @@ class _OrderDetailsState extends State<OrderDetails> {
                 ),
               ),
             ),
+            if (_orderedItemList[index].fooooz_number?.trim().isNotEmpty ==
+                true)
+              Padding(
+                padding:
+                    const EdgeInsets.only(bottom: AppDimensions.paddingSmall),
+                child: Text(
+                  'fooooz_number_order_details'.tr(
+                    context: context,
+                    args: {
+                      "fooooz_number":
+                          "${_orderedItemList[index].fooooz_number}",
+                    },
+                  ),
+                  style: const TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
             Padding(
               padding:
                   const EdgeInsets.only(bottom: AppDimensions.paddingSmall),

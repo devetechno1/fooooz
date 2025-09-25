@@ -99,7 +99,7 @@ class _MetroScreenState extends State<MetroScreen>
                             delegate: SliverChildListDelegate([
                               // Padding(
                               //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                              //   child: Image.network("https://sellerwise.devefinance.com/public/uploads/all/Ryto4mRZFjxR8INkhLs1DFyX6eoamXKIxXEDFBZM.png"),//TODO:# banner
+                              //   child: Image.network("https://fooooz.com/public/uploads/all/Ryto4mRZFjxR8INkhLs1DFyX6eoamXKIxXEDFBZM.png"),//TODO:# banner
                               // ),
                               TodaysDealProductsWidget(
                                 homePresenter: homeData,

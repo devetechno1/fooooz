@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'variant_price_response.dart';
+
 VariantResponse variantResponseFromJson(String str) =>
     VariantResponse.fromJson(json.decode(str));
 
@@ -37,6 +39,7 @@ class VariantData {
   int? stock;
   int? inCart;
   String? stockTxt;
+  List<int>? foooozNumber;
   bool digital;
   String? variant;
   String? variation;
@@ -50,6 +53,7 @@ class VariantData {
     this.stock,
     this.inCart,
     this.stockTxt,
+    this.foooozNumber,
     this.digital = false,
     this.variant,
     this.variation,
@@ -65,6 +69,7 @@ class VariantData {
         inCart: int.tryParse(json["in_cart"].toString()),
         stockTxt: "${json["stock_txt"]}",
         digital: "${json["digital"]}" == '1',
+        foooozNumber: getFoooozNumber(json["fooooz_number"]),
         variant: json["variant"],
         variation: json["variation"],
         maxLimit: int.parse(json["max_limit"].toString()),
@@ -78,6 +83,7 @@ class VariantData {
         "stock": stock,
         "in_cart": inCart,
         "digital": digital,
+        if (foooozNumber != null) "fooooz_number": foooozNumber!.join("-"),
         "variant": variant,
         "variation": variation,
         "max_limit": maxLimit,

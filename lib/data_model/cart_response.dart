@@ -87,6 +87,7 @@ class CartItem {
   int upperLimit;
   int? _maxQty;
   bool isDigital;
+  String? foooozNumber;
   bool isLoading;
   List<Wholesale> wholesales;
   int get maxQuantity =>
@@ -113,6 +114,7 @@ class CartItem {
     this.upperLimit = 0,
     this.isDigital = false,
     int? maxQty,
+    this.foooozNumber,
     this.isLoading = false,
     this.wholesales = const [],
   }) {
@@ -141,6 +143,8 @@ class CartItem {
             ? []
             : List<Wholesale>.from((json["wholesale_variation"] as List)
                 .map((x) => Wholesale.fromJson(x))),
+        foooozNumber:
+            json["fooooz_number"] == null ? null : "${json["fooooz_number"]}",
       );
 
   Map<String, dynamic> toJson() => {
@@ -158,9 +162,11 @@ class CartItem {
         "tax": tax,
         // "shipping_cost": shippingCost,
         "quantity": quantity,
+        "is_digital": isDigital ? "1" : "0",
         "lower_limit": lowerLimit,
         "upper_limit": upperLimit,
         "wholesale_variation":
             List<dynamic>.from(wholesales.map((x) => x.toJson())),
+        if (foooozNumber != null) "fooooz_number": foooozNumber,
       };
 }
