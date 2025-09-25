@@ -42,6 +42,7 @@ import '../checkout/cart.dart';
 import '../seller_details.dart';
 import '../video_description_screen.dart';
 import 'product_reviews.dart';
+import 'widgets/number_assign_widget.dart';
 import 'widgets/product_slider_image_widget.dart';
 import 'widgets/tappable_icon_widget.dart';
 
@@ -104,6 +105,9 @@ class _DigitalProductDetailsState extends State<DigitalProductDetails>
   bool _relatedProductInit = false;
   final List<dynamic> _topProducts = [];
   bool _topProductInit = false;
+
+  final GlobalKey<FormFieldState> _formFieldKey = GlobalKey<FormFieldState>();
+  final StringBuffer foooozNumber = StringBuffer();
 
   @override
   void initState() {
@@ -392,8 +396,20 @@ class _DigitalProductDetailsState extends State<DigitalProductDetails>
       }
     }
 
-    final cartAddResponse = await CartRepository()
-        .getCartAddResponse(_productDetails!.id, _variant, 1);
+    if (_formFieldKey.currentState?.validate() != true) {
+      ToastComponent.showDialog(
+        'fill_all_slots'.tr(context: context),
+        isError: true,
+      );
+      return;
+    }
+
+    final cartAddResponse = await CartRepository().getCartAddResponse(
+      _productDetails!.id,
+      _variant,
+      1,
+      foooozNumber.toString(),
+    );
 
     // temp_user_id.$ = cartAddResponse.tempUserId;
     // temp_user_id.save();
@@ -1067,6 +1083,15 @@ class _DigitalProductDetailsState extends State<DigitalProductDetails>
                               ],
                             ),
                           ),
+                          if (_productDetails != null)
+                            NumberAssignWidget(
+                              fieldKey: _formFieldKey,
+                              onChanged: (value) {
+                                foooozNumber.clear();
+                                foooozNumber.write(value.join('-'));
+                                print(foooozNumber.toString());
+                              },
+                            ),
                           _productDetails != null
                               ? buildSellerRow(context)
                               : ShimmerHelper().buildBasicShimmer(

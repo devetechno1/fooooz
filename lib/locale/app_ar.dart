@@ -1,4 +1,6 @@
 const Map<String, String> arLangs = {
+  "fill_all_slots": "من فضلك املأ كل الخانات",
+  "all_fields_filled": "كل الحقول ممتلئة.",
   "download_started": "تم بدء التحميل",
   "download_failed": "فشل التنزيل",
   "Newest": "الأحدث",

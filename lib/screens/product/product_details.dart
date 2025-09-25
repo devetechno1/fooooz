@@ -49,6 +49,7 @@ import '../checkout/cart.dart';
 import '../seller_details.dart';
 import '../video_description_screen.dart';
 import 'product_reviews.dart';
+import 'widgets/number_assign_widget.dart';
 import 'widgets/product_slider_image_widget.dart';
 import 'widgets/tappable_icon_widget.dart';
 import 'package:one_context/one_context.dart';
@@ -119,7 +120,16 @@ class _ProductDetailsState extends State<ProductDetails>
   String? error;
   bool get productHasError => error?.trim().isNotEmpty == true;
 
-  T whenItemInCart<T>(T inCart, T notInCart) {
+  final GlobalKey<FormFieldState> _formFieldKey = GlobalKey<FormFieldState>();
+  final StringBuffer foooozNumber = StringBuffer();
+
+/*************  ✨ Windsurf Command ⭐  *************/
+  /// Returns [inCart] if item is in cart, otherwise returns [notInCart].
+  ///
+  /// [inCart] is the value to return when the item is in cart.
+  /// [notInCart] is the value to return when the item is not in cart.
+/*******  47daf3e5-9339-4b46-98a4-67bda0c1b73d  *******/ T whenItemInCart<T>(
+      T inCart, T notInCart) {
     if (_inCart > 0) {
       return inCart;
     } else {
@@ -474,12 +484,20 @@ class _ProductDetailsState extends State<ProductDetails>
         return;
       }
     }
+    if (_formFieldKey.currentState?.validate() != true) {
+      ToastComponent.showDialog(
+        'fill_all_slots'.tr(context: context),
+        isError: true,
+      );
+      return;
+    }
     await fetchAndSetVariantWiseInfo();
 
     final cartAddResponse = await CartRepository().getCartAddResponse(
       _productDetails?.id,
       _variant,
       _quantity,
+      foooozNumber.toString(),
     );
 
     temp_user_id.$ = cartAddResponse?.tempUserId ?? '';
@@ -1193,6 +1211,15 @@ class _ProductDetailsState extends State<ProductDetails>
                                 ],
                               ),
                             ),
+                            if (_productDetails != null)
+                              NumberAssignWidget(
+                                fieldKey: _formFieldKey,
+                                onChanged: (value) {
+                                  foooozNumber.clear();
+                                  foooozNumber.write(value.join('-'));
+                                  print(foooozNumber.toString());
+                                },
+                              ),
                             _productDetails != null
                                 ? buildSellerRow(context)
                                 : ShimmerHelper().buildBasicShimmer(
@@ -2325,25 +2352,29 @@ class _ProductDetailsState extends State<ProductDetails>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Image.asset(
-                  "assets/clubpoint.png",
-                  width: 18,
-                  height: 12,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  'club_point_ucf'.tr(context: context),
-                  style: const TextStyle(
-                      color: Color(0xff6B7377),
-                      fontSize: 10,
-                      fontFamily: 'Public Sans',
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Image.asset(
+                      "assets/clubpoint.png",
+                      width: 18,
+                      height: 12,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  Text(
+                    'club_point_ucf'.tr(context: context),
+                    style: const TextStyle(
+                        color: Color(0xff6B7377),
+                        fontSize: 10,
+                        fontFamily: 'Public Sans',
+                        fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
             ),
             Text(
               _productDetails!.earn_point.toString(),

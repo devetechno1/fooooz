@@ -101,7 +101,11 @@ class CartRepository {
 
   // cart add
   Future<dynamic> getCartAddResponse(
-      int? id, String? variant, int? quantity) async {
+    int? id,
+    String? variant,
+    int? quantity, [
+    String? foooozNumber,
+  ]) async {
     String postBody;
 
     if (AppConfig.businessSettingsData.guestCheckoutStatus && !is_logged_in.$) {
@@ -110,7 +114,8 @@ class CartRepository {
         "variant": variant,
         "quantity": "$quantity",
         "cost_matrix": AppConfig.purchase_code,
-        "temp_user_id": temp_user_id.$
+        "temp_user_id": temp_user_id.$,
+        if (foooozNumber != null) "fooooz_number": foooozNumber,
       });
     } else {
       postBody = jsonEncode({
@@ -119,6 +124,7 @@ class CartRepository {
         "user_id": "${user_id.$}",
         "quantity": "$quantity",
         "cost_matrix": AppConfig.purchase_code,
+        if (foooozNumber != null) "fooooz_number": foooozNumber,
       });
     }
 

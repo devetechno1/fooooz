@@ -76,8 +76,8 @@ class AppConfig {
   //do not configure these below
   static const String API_ENDPATH = "api/v2";
   static const String PROTOCOL = HTTPS ? "https://" : "http://";
-  // static const String RAW_BASE_URL = "http://192.168.100.200:8080/devef";
-  static const String RAW_BASE_URL = "$PROTOCOL$DOMAIN_PATH";
+  static const String RAW_BASE_URL = "http://192.168.1.200/fooooz";
+  // static const String RAW_BASE_URL = "$PROTOCOL$DOMAIN_PATH";
   static const String BASE_URL = "$RAW_BASE_URL/$API_ENDPATH";
 
   static const LatLng initPlace = LatLng(30.723003387451172, 31.02609634399414);

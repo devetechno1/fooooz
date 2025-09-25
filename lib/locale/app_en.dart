@@ -1,4 +1,6 @@
 const Map<String, String> enLangs = {
+  "fill_all_slots": "Please fill all slots",
+  "all_fields_filled": "All fields are filled.",
   "download_started": "Download started",
   "download_failed": "Download failed",
   "Newest": "Newest",
