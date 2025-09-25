@@ -37,7 +37,7 @@ class VariantData {
   int? stock;
   int? inCart;
   String? stockTxt;
-  int? digital;
+  bool digital;
   String? variant;
   String? variation;
   int? maxLimit;
@@ -50,7 +50,7 @@ class VariantData {
     this.stock,
     this.inCart,
     this.stockTxt,
-    this.digital,
+    this.digital = false,
     this.variant,
     this.variation,
     this.maxLimit,
@@ -64,7 +64,7 @@ class VariantData {
         stock: int.parse(json["stock"].toString()),
         inCart: int.tryParse(json["in_cart"].toString()),
         stockTxt: "${json["stock_txt"]}",
-        digital: int.parse(json["digital"].toString()),
+        digital: "${json["digital"]}" == '1',
         variant: json["variant"],
         variation: json["variation"],
         maxLimit: int.parse(json["max_limit"].toString()),

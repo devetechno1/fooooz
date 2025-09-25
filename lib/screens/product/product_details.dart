@@ -111,6 +111,8 @@ class _ProductDetailsState extends State<ProductDetails>
   int _inCart = 0;
   String? _stock_txt;
 
+  bool _isDigital = false;
+
   int get _s => _stock.onlyPositive?.toInt() ?? 0;
 
   int get maxQuantity => min(_s, _productDetails?.maxQty ?? _s);
@@ -384,6 +386,7 @@ class _ProductDetailsState extends State<ProductDetails>
     _stock = variantResponse.variantData!.stock ?? _stock;
     _stock_txt = variantResponse.variantData!.stockTxt;
     _inCart = variantResponse.variantData!.inCart ?? 0;
+    _isDigital = variantResponse.variantData!.digital;
 
     if (inInit && _inCart > 0) {
       _quantity = _inCart;
@@ -1227,7 +1230,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                   ),
                             if (isWholesale)
                               wholeSalePackingWidget()
-                            else
+                            else if (!_isDigital)
                               Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(14, 0, 14, 0),
@@ -1270,17 +1273,19 @@ class _ProductDetailsState extends State<ProductDetails>
                                   ],
                                 ),
                               ),
-                            const SizedBox(height: 27),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              child: _productDetails != null
-                                  ? buildTotalPriceRow()
-                                  : ShimmerHelper().buildBasicShimmer(
-                                      height: 30.0,
-                                    ),
-                            ),
-                            const SizedBox(height: 10)
+                            if (!_isDigital) ...[
+                              const SizedBox(height: 27),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: _productDetails != null
+                                    ? buildTotalPriceRow()
+                                    : ShimmerHelper().buildBasicShimmer(
+                                        height: 30.0,
+                                      ),
+                              ),
+                              const SizedBox(height: 10)
+                            ],
                           ],
                         ),
                       ),
