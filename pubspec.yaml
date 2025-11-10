@@ -126,6 +126,7 @@ flutter:
     - assets/htmls/
     - assets/fonts/
     - dummy_assets/
+    - shorebird.yaml
   fonts:
     - family: PublicSansSerif
       fonts:

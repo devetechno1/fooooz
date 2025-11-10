@@ -70,7 +70,6 @@ ios/Flutter/app.flx
 ios/Flutter/ephemeral/
 ios/.symlinks/
 ios/Pods/
-ios/Podfile.lock
 ios/.generated/
 ios/.dart_tool/
 ios/build/
@@ -84,5 +83,4 @@ ios/Runner.xcworkspace/xcuserdata/
 # Temporary or local files
 *.orig
 *.tmp
-*.lock
 
