@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyACqdEr5lW2Jhe9JqeudRZD3bz4EGQOhzU</string>
+	<string>AIzaSyBxAmp02to8VJntDzh_8HldnA1iD7VancI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>982312685420</string>
+	<string>664489269162</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.devefinance</string>
+	<string>com.fooooz</string>
 	<key>PROJECT_ID</key>
-	<string>deveinance</string>
+	<string>foooz-c5109</string>
 	<key>STORAGE_BUCKET</key>
-	<string>deveinance.firebasestorage.app</string>
+	<string>foooz-c5109.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:982312685420:ios:e0477553a4c020ef466d49</string>
+	<string>1:664489269162:ios:8a391fda67cd8dfaa23dd3</string>
 </dict>
 </plist>
