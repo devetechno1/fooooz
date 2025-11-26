@@ -55,7 +55,8 @@ class _FlashDealListState extends State<FlashDealList> {
                 'network_error'.tr(context: context),
               ),
             );
-          } else if (snapshot.data == null) {
+          } else if (snapshot.data == null||
+             snapshot.data!.flashDeals!.isEmpty) {
             return Container(
               child: Center(
                   child: Text(
