@@ -23,7 +23,6 @@ import 'package:active_ecommerce_cms_demo_app/screens/coupon/coupons.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/digital_product/digital_products.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/filter.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/flash_deal/flash_deal_list.dart';
-import 'package:active_ecommerce_cms_demo_app/screens/home/home.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/product/last_view_product.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/product/top_selling_products.dart';
 import 'package:active_ecommerce_cms_demo_app/screens/refund_request.dart';
@@ -70,7 +69,6 @@ class _ProfileState extends State<Profile> {
   // ScrollController _mainScrollController = ScrollController();
   // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  bool _auctionExpand = false;
   int? _cartCounter = 0;
   String _cartCounterString = "00";
   int? _wishlistCounter = 0;
@@ -295,7 +293,7 @@ class _ProfileState extends State<Profile> {
     return Container(
       margin:
           const EdgeInsets.only(bottom: 120, top: AppDimensions.paddingNormal),
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecorations.buildBoxDecoration_1()
           .copyWith(boxShadow: [const BoxShadow(spreadRadius: 0.08)]),
       child: Column(
@@ -321,409 +319,166 @@ class _ProfileState extends State<Profile> {
           //       ),
           //     ],
           //   ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildBottomVerticalCardListItem(AppImages.products,
-                  'top_selling_products_ucf'.tr(context: context),
-                  onPressed: () {
-                final bool isPhone = user_phone.$.trim().isNotEmpty == true &&
-                    AppConfig.businessSettingsData.otpProviders.isNotEmpty;
-                AIZRoute.push(
-                  context,
-                  TopSellingProducts(),
-                  isPhone ? user_phone.$.trim() : user_email.$.trim(),
-                  null,
-                  isPhone,
-                );
-              }),
-              const Divider(
-                thickness: 1,
-                color: MyTheme.light_grey,
-              ),
-            ],
+          BottomVerticalCardListItemWidget(
+            AppImages.products,
+            'top_selling_products_ucf'.tr(context: context),
+            onPressed: () {
+              final bool isPhone = user_phone.$.trim().isNotEmpty == true &&
+                  AppConfig.businessSettingsData.otpProviders.isNotEmpty;
+              AIZRoute.push(
+                context,
+                TopSellingProducts(),
+                isPhone ? user_phone.$.trim() : user_email.$.trim(),
+                null,
+                isPhone,
+              );
+            },
           ),
           if (whole_sale_addon_installed.$)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildBottomVerticalCardListItem(AppImages.wholeSale,
-                    'wholesale_product'.tr(context: context), onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WholesalesScreen()));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildBottomVerticalCardListItem(
-                  AppImages.blog, 'blog_list_ucf'.tr(context: context),
-                  onPressed: () {
+            BottomVerticalCardListItemWidget(
+              AppImages.wholeSale,
+              'wholesale_product'.tr(context: context),
+              onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BlogListScreen()));
-              }),
-              const Divider(
-                thickness: 1,
-                color: MyTheme.light_grey,
-              ),
-            ],
+                        builder: (context) => const WholesalesScreen()));
+              },
+            ),
+          BottomVerticalCardListItemWidget(
+            AppImages.blog,
+            'blog_list_ucf'.tr(context: context),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BlogListScreen()));
+            },
           ),
 
-          buildBottomVerticalCardListItem(AppImages.download,
-              'all_digital_products_ucf'.tr(context: context), onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const DigitalProducts();
-            }));
-          }),
-          const Divider(
-            thickness: 1,
-            color: MyTheme.light_grey,
+          BottomVerticalCardListItemWidget(
+            AppImages.download,
+            'all_digital_products_ucf'.tr(context: context),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const DigitalProducts();
+              }));
+            },
           ),
-          buildBottomVerticalCardListItem(
+
+          BottomVerticalCardListItemWidget(
               AppImages.coupon, 'coupons_ucf'.tr(context: context),
               onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const Coupons();
             }));
           }),
-          const Divider(
-            thickness: 1,
-            color: MyTheme.light_grey,
-          ),
           //flash_deals
-          if (homeData.isFlashDealInitial != false)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(
-                    AppImages.flashDeal, 'flash_deal_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FlashDealList();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
+          BottomVerticalCardListItemWidget(
+                  AppImages.flashDeal,
+                  'flash_deal_ucf'.tr(context: context),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return FlashDealList();
+                    }));
+                  },
                 ),
-              ],
-            ),
 
           //flash_deals
-          buildBottomVerticalCardListItem(
+          BottomVerticalCardListItemWidget(
               AppImages.brands, 'brands_ucf'.tr(context: context),
               onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return const Filter(selected_filter: "brands");
             }));
           }),
-          const Divider(
-            thickness: 1,
-            color: MyTheme.light_grey,
-          ),
 
-          // this is addon
-          if (false)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.auction,
-                    'on_auction_products_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AuctionProducts();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
+          // // this is addon
+          // if (false)
+          //   BottomVerticalCardListItemWidget(
+          //     AppImages.auction,
+          //     'on_auction_products_ucf'.tr(context: context),
+          //     onPressed: () {
+          //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //         return const AuctionProducts();
+          //       }));
+          //     },
+          //   ),
           if (AppConfig.businessSettingsData.classifiedProduct &&
               is_logged_in.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.myClassified,
-                    'my_classified_ads_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const MyClassifiedAds();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
+            BottomVerticalCardListItemWidget(
+              AppImages.myClassified,
+              'my_classified_ads_ucf'.tr(context: context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const MyClassifiedAds();
+                }));
+              },
             ),
 /////
           if (AppConfig.businessSettingsData.classifiedProduct)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.classifiedProduct,
-                    'all_classified_ads_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const ClassifiedAds();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
+            BottomVerticalCardListItemWidget(
+              AppImages.classifiedProduct,
+              'all_classified_ads_ucf'.tr(context: context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const ClassifiedAds();
+                }));
+              },
             ),
 
           if (AppConfig.businessSettingsData.lastViewedProductActivation &&
               is_logged_in.$)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.lastViewProduct,
-                    'last_view_product_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const LastViewProduct();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
+            BottomVerticalCardListItemWidget(
+              AppImages.lastViewProduct,
+              'last_view_product_ucf'.tr(context: context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const LastViewProduct();
+                }));
+              },
             ),
 
-          // this is addon auction product
-          if (false)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.auction,
-                    'on_auction_products_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AuctionProducts();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
-          if (auction_addon_installed.$)
-            Column(
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  height: _auctionExpand
-                      ? is_logged_in.$
-                          ? 150
-                          : 80
-                      : 40,
-                  alignment: Alignment.topCenter,
-                  padding:
-                      const EdgeInsets.only(top: AppDimensions.paddingSupSmall),
-                  child: InkWell(
-                    onTap: () {
-                      _auctionExpand = !_auctionExpand;
-                      setState(() {});
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.only(
-                                        end: 24.0),
-                                    child: Image.asset(
-                                      AppImages.auction,
-                                      height: 16,
-                                      width: 16,
-                                      color: MyTheme.dark_font_grey,
-                                    ),
-                                  ),
-                                  Text(
-                                    'auction_ucf'.tr(context: context),
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        color: MyTheme.dark_font_grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(
-                              _auctionExpand
-                                  ? Icons.keyboard_arrow_down
-                                  : Icons.navigate_next_rounded,
-                              size: 20,
-                              color: MyTheme.dark_font_grey,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Flexible(
-                          child: AnimatedScale(
-                            duration: const Duration(milliseconds: 300),
-                            scale: _auctionExpand ? 1 : 0,
-                            alignment: app_language_rtl.$ == true
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            child: Container(
-                              padding:
-                                  const EdgeInsetsDirectional.only(start: 40),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () => OneContext().push(
-                                      MaterialPageRoute(
-                                        builder: (_) => const AuctionProducts(),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          '-',
-                                          style: TextStyle(
-                                            color: MyTheme.dark_font_grey,
-                                          ),
-                                        ),
-                                        Text(
-                                          " ${'on_auction_products_ucf'.tr(context: context)}",
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: MyTheme.dark_font_grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  if (is_logged_in.$)
-                                    Column(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () => OneContext().push(
-                                            MaterialPageRoute(
-                                              builder: (_) =>
-                                                  const AuctionBiddedProducts(),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              const Text(
-                                                '-',
-                                                style: TextStyle(
-                                                  color: MyTheme.dark_font_grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                " ${'bidded_products_ucf'.tr(context: context)}",
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: MyTheme.dark_font_grey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => OneContext().push(
-                                            MaterialPageRoute(
-                                              builder: (_) =>
-                                                  const AuctionPurchaseHistory(),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              const Text(
-                                                '-',
-                                                style: TextStyle(
-                                                  color: MyTheme.dark_font_grey,
-                                                ),
-                                              ),
-                                              Text(
-                                                " ${'purchase_history_ucf'.tr(context: context)}",
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: MyTheme.dark_font_grey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
-            ),
+          // // this is addon auction product
+          // if (false)
+
+          // BottomVerticalCardListItemWidget(
+          //   AppImages.auction,
+          //   'on_auction_products_ucf'.tr(context: context),
+          //   onPressed: () {
+          //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //       return const AuctionProducts();
+          //     }));
+          //   },
+          // ),
+          if (auction_addon_installed.$) const AuctionTileWidget(),
           if (AppConfig.businessSettingsData.classifiedProduct)
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.shop,
-                    'browse_all_sellers_ucf'.tr(context: context),
-                    onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const Filter(
-                      selected_filter: "sellers",
-                    );
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
+            BottomVerticalCardListItemWidget(
+              AppImages.shop,
+              'browse_all_sellers_ucf'.tr(context: context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const Filter(
+                    selected_filter: "sellers",
+                  );
+                }));
+              },
             ),
 
           if (is_logged_in.$ &&
               (AppConfig.businessSettingsData.classifiedProduct))
-            Column(
-              children: [
-                buildBottomVerticalCardListItem(AppImages.followSeller,
-                    'followed_sellers_ucf'.tr(context: context), onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const FollowedSellers();
-                  }));
-                }),
-                const Divider(
-                  thickness: 1,
-                  color: MyTheme.light_grey,
-                ),
-              ],
+            BottomVerticalCardListItemWidget(
+              AppImages.followSeller,
+              'followed_sellers_ucf'.tr(context: context),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const FollowedSellers();
+                }));
+              },
             ),
 
-          buildBottomVerticalCardListItem(
+          BottomVerticalCardListItemWidget(
             AppImages.delete,
             'privacy_policy_ucf'.tr(context: context),
             icon: Icons.lock_outline_rounded,
@@ -738,61 +493,16 @@ class _ProfileState extends State<Profile> {
                 ),
               );
             },
+            showDivider: is_logged_in.$,
           ),
-          if (is_logged_in.$) ...[
-            const Divider(
-              thickness: 1,
-              color: MyTheme.light_grey,
-            ),
-            buildBottomVerticalCardListItem(
+          if (is_logged_in.$)
+            BottomVerticalCardListItemWidget(
               AppImages.delete,
               'delete_my_account'.tr(context: context),
               onPressed: deleteWarningDialog,
-            )
-          ],
+              showDivider: false,
+            ),
         ],
-      ),
-    );
-  }
-
-  SizedBox buildBottomVerticalCardListItem(String img, String label,
-      {Function()? onPressed, bool isDisable = false, IconData? icon}) {
-    return SizedBox(
-      height: 40,
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-            splashFactory: NoSplash.splashFactory,
-            alignment: Alignment.center,
-            padding: EdgeInsets.zero),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.only(end: 24.0),
-              child: icon == null
-                  ? Image.asset(
-                      img,
-                      height: 16,
-                      width: 16,
-                      color:
-                          isDisable ? MyTheme.grey_153 : MyTheme.dark_font_grey,
-                    )
-                  : Icon(
-                      icon,
-                      size: 18,
-                      color:
-                          isDisable ? MyTheme.grey_153 : MyTheme.dark_font_grey,
-                    ),
-            ),
-            Text(
-              label,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: isDisable ? MyTheme.grey_153 : MyTheme.dark_font_grey),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -1357,5 +1067,268 @@ class _ProfileState extends State<Profile> {
             ),
           );
         });
+  }
+}
+
+class AuctionTileWidget extends StatefulWidget {
+  const AuctionTileWidget({super.key});
+
+  @override
+  State<AuctionTileWidget> createState() => AuctionTileWidgetState();
+}
+
+class AuctionTileWidgetState extends State<AuctionTileWidget> {
+  bool _auctionExpand = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: MyTheme.light_grey,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                _auctionExpand = !_auctionExpand;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              child: SizedBox(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsetsDirectional.only(end: 24.0),
+                            child: Image.asset(
+                              AppImages.auction,
+                              height: 16,
+                              width: 16,
+                              color: MyTheme.dark_font_grey,
+                            ),
+                          ),
+                          Text(
+                            'auction_ucf'.tr(context: context),
+                            style: const TextStyle(
+                                fontSize: 12, color: MyTheme.dark_font_grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                    AnimatedRotation(
+                      turns: _auctionExpand
+                          ? (app_language_rtl.$ == true ? -0.25 : 0.25)
+                          : 0.0,
+                      duration: const Duration(milliseconds: 300),
+                      child: const Icon(
+                        Icons.navigate_next_rounded,
+                        size: 20,
+                        color: MyTheme.dark_font_grey,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          AnimatedSize(
+            duration: const Duration(milliseconds: 300),
+            alignment: Alignment.topCenter,
+            curve: Curves.easeInOut,
+            child: _auctionExpand
+                ? Container(
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsetsDirectional.only(start: 40, bottom: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 22),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () => OneContext().push(
+                            MaterialPageRoute(
+                              builder: (_) => const AuctionProducts(),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  '-',
+                                  style: TextStyle(
+                                    color: MyTheme.dark_font_grey,
+                                  ),
+                                ),
+                                Text(
+                                  " ${'on_auction_products_ucf'.tr(context: context)}",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: MyTheme.dark_font_grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        if (is_logged_in.$)
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () => OneContext().push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const AuctionBiddedProducts(),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        '-',
+                                        style: TextStyle(
+                                          color: MyTheme.dark_font_grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        " ${'bidded_products_ucf'.tr(context: context)}",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: MyTheme.dark_font_grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => OneContext().push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const AuctionPurchaseHistory(),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        '-',
+                                        style: TextStyle(
+                                          color: MyTheme.dark_font_grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        " ${'purchase_history_ucf'.tr(context: context)}",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: MyTheme.dark_font_grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomVerticalCardListItemWidget extends StatelessWidget {
+  const BottomVerticalCardListItemWidget(
+    this.img,
+    this.label, {
+    super.key,
+    this.onPressed,
+    this.isDisable = false,
+    this.icon,
+    this.showDivider = true,
+  });
+  final String img;
+  final String label;
+  final Function()? onPressed;
+  final bool isDisable;
+  final IconData? icon;
+  final bool showDivider;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 22),
+        height: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: showDivider
+                ? const BorderSide(
+                    color: MyTheme.light_grey,
+                    width: 1,
+                  )
+                : BorderSide.none,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 24.0),
+                  child: icon == null
+                      ? Image.asset(
+                          img,
+                          height: 16,
+                          width: 16,
+                          color: isDisable
+                              ? MyTheme.grey_153
+                              : MyTheme.dark_font_grey,
+                        )
+                      : Icon(
+                          icon,
+                          size: 18,
+                          color: isDisable
+                              ? MyTheme.grey_153
+                              : MyTheme.dark_font_grey,
+                        ),
+                ),
+                Text(
+                  label,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: isDisable
+                          ? MyTheme.grey_153
+                          : MyTheme.dark_font_grey),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
